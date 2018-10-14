@@ -3,12 +3,15 @@ import Moment from 'moment';
 class Calender {
 
   static getDaysForMonthAndYear({month, year}) {
-    let daysCount = this.getNumberOfDaysInMonthAndYear({month, year})
+    month = Number.parseInt(month);
+    year = Number.parseInt(year);
+
+    let daysCount = this.getNumberOfDaysInMonthAndYear({month, year});
 
     let days = [];
 
-    for (let i = 1 ; i < daysCount ; i++){
-      let day = new Day(i, month, year);
+    for (let i = 1 ; i <= daysCount ; i++){
+      let day = new Day({date:i, month, year});
       days.push(day);
     }
 
@@ -35,6 +38,10 @@ class Calender {
 
     return 30;
   }
+  static getMonthName = (monthNumber) => {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'][Number.parseInt(monthNumber)]
+  }
 
 
 }
@@ -54,8 +61,8 @@ class Day {
     this.name = Moment(`${year} ${month} ${date}`, 'YYYY MM DD').format('dddd'); // Saturday
   }
 
-  getFormatDate(){
-    return `${this.year}-${this.month}-${this.date}`
+  getFormatDate(){  // YYYY-MM-DD
+    return Moment(`${this.year}-${this.month}-${this.date}`, 'YYYY-MM-DD').format('YYYY-MM-DD')
   }
 }
 

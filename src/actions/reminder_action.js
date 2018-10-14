@@ -9,7 +9,7 @@ class ReminderActions {
     const reminder = state.reminders[uuid];
     try {
       let formatDate = reminder.day.getFormatDate();
-      let index = state.dayWiseMap[formatDate].indexOf(formatDate);
+      let index = state.dayWiseMap[formatDate].indexOf(uuid);
       if (index >= 0)
         state.dayWiseMap[formatDate].splice(index, 1);
     } catch (e) {
@@ -25,7 +25,7 @@ class ReminderActions {
     const {title, date, color, time, duration} = params;
     const {year, month, dt} = ReminderActions.getDateMonthYearFromDate(date);
     const day = new Day({date:dt, month, year});
-    const reminder = new Reminder({title, time, duration, color, day}  );
+    const reminder = new Reminder({title, startTime:time, duration, color, day}  );
     let d = day.getFormatDate();
     state.reminders[reminder.uuid] = reminder;
     if ( !state.dayWiseMap[d] )
@@ -43,11 +43,11 @@ class ReminderActions {
     const reminder = state.reminders[uuid];
     try {
       let formatDate = reminder.day.getFormatDate();
-      let index = state.dayWiseMap[reminder.day.getFormatDate()].indexOf(formatDate);
+      let index = state.dayWiseMap[reminder.day.getFormatDate()].indexOf(uuid);
       if (index >= 0)
         state.dayWiseMap[reminder.day.getFormatDate()].splice(index, 1);
 
-      Object.assign(reminder, {title, day, color, time, duration});
+      Object.assign(reminder, {title, day, color, startTime:time, duration});
       if ( !state.dayWiseMap[day.getFormatDate()] )
         state.dayWiseMap[day.getFormatDate()] = [reminder.uuid];
       else state.dayWiseMap[day.getFormatDate()].push(reminder.uuid)

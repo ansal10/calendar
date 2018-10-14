@@ -26,8 +26,10 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/reminder/new' component={Reminder}/>
+            <Route exact path='/reminder/new/:formatDate' component={Reminder}/>
             <Route exact path='/reminder/:uuid' component={Reminder}/>
             <Route exact path='/reminder/:uuid/:action' component={Reminder}/>
+            <Route exact path='/:year/:month' component={CalendarMonth} />
             <Route exact path='/' component={CalendarMonth} />
           </Switch>
         </BrowserRouter>
