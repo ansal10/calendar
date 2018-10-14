@@ -27,7 +27,7 @@ class CalendarMonth extends Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((d) => {
       return (
         <div style={{width: '13%', float: 'left'}} key={d}>
-          {d}
+          <b>{d}</b>
         </div>
       )
     });
@@ -105,7 +105,7 @@ class CalendarMonth extends Component {
       <div className='container'>
         <div className="panel panel-default">
           <div className="panel-heading">{Calender.getMonthName(month) + ' ' + year}</div>
-          <div className="panel-body">
+          <div className="panel-body" style={{background: '#888888'}}>
             <div className='container'>
               <div style={{ float: 'left'}}>
                 <button onClick={this.navigateToPrevious}> Prev </button>

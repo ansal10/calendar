@@ -74,7 +74,7 @@ class ReminderActions {
   static validateReminderParams(param) {
     const {title, date, color, time, duration} = param;
     if (!title ||  title.length > 30)
-      return 'Title is required and length should be 30';
+      return 'Title is required and length limit should be within 30';
     if (!Moment(date, 'YYYY-MM-DD').isValid() )
       return 'Date is not valid';
     if (!time || !Moment(time, 'hh:mm').isValid())
