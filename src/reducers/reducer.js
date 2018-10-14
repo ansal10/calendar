@@ -15,7 +15,7 @@ let initState = {
 
 
 
-for (let i = 0 ; i < 10 ; i++){
+for (let i = 0 ; i < 30 ; i++){
   const month = Moment().format('MM');
   const year = Moment().format('YYYY');
   const day = Faker.random.number() % 30;
@@ -23,7 +23,8 @@ for (let i = 0 ; i < 10 ; i++){
   const date = `${year}-${month}-${day}`;
   const time = `${Faker.random.number()%24}:${Faker.random.number()%60}`;
   const duration = Faker.random.number()%50 + 6;
-  initState = ReminderActions.createReminder(initState, {title, date, time, duration});
+  const color = Faker.internet.color();
+  initState = ReminderActions.createReminder(initState, {title, date, time, duration, color});
 
 }
 

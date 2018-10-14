@@ -1,5 +1,3 @@
-
-
 import React, {Component} from 'react'
 import Immutable from 'immutable'
 import {connect} from 'react-redux'
@@ -8,38 +6,41 @@ import Moment from 'moment';
 import DayBlock from "./DayBlock";
 import Reminder from "../models/reminder";
 import Lodash from 'lodash'
+import '../styles.css'
 
 class CalendarMonth extends Component {
 
 
-
-  constructor(month){
+  constructor(month) {
     super()
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.year = this.props.match.params.year;
     this.month = this.props.match.params.month;
 
   }
 
-  getDaysLabels(){
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((d) => {
-      return (
-        <div style={{width: '13%', float: 'left'}} key={d}>
-          <b>{d}</b>
+  renderDaysLabels() {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let data = []
+    for (let id in days) {
+      data.push(
+        <div className="col col-center" key={id}>
+          {days[id]}
         </div>
-      )
-    });
-    return days;
+      );
+    }
+    return <div className="days row">{data}</div>;
+
   }
 
   navigateToNextMonth = () => {
-    let {month, year } = this.props;
+    let {month, year} = this.props;
     month = Number.parseInt(month);
     year = Number.parseInt(year);
 
-    let nextYear = (month + 1) > 12 ? year+1: year;
+    let nextYear = (month + 1) > 12 ? year + 1 : year;
     let nextMonth = (month + 1) > 12 ? 1 : month + 1;
 
 
@@ -49,11 +50,11 @@ class CalendarMonth extends Component {
   }
 
   navigateToPrevious = () => {
-    let {month, year } = this.props;
+    let {month, year} = this.props;
     month = Number.parseInt(month);
     year = Number.parseInt(year);
 
-    let nextYear = (month - 1) < 1 ? year-1: year;
+    let nextYear = (month - 1) < 1 ? year - 1 : year;
     let nextMonth = (month - 1) < 1 ? 12 : month - 1;
 
     let url = Moment(`${nextYear}-${nextMonth}`, 'YYYY-MM').format('YYYY/MM');
@@ -62,7 +63,7 @@ class CalendarMonth extends Component {
   }
 
 
-  getDaysMatrix = () => {  // 7 x 5 Day matrix
+  renderDaysMatrix = () => {  // 7 x 5 Day matrix
 
     const {month, year} = this.props;
     const days = [];
@@ -76,48 +77,59 @@ class CalendarMonth extends Component {
       for (let i = 0; i < startDay; i++)
         days.unshift(null);
 
+      let dayIndex = 0;
+      let weekDays = 0;
+      let matrix = [];
+      let rows = [];
+      while (dayIndex < days.length) {
+        if (weekDays <= 7) {
+          rows.push(<DayBlock day={days[dayIndex]}/>);
+          weekDays++;
+        }
+        if (weekDays === 7 || dayIndex === (days.length - 1)) {
+          matrix.push(
+            <div className='row' key={days[dayIndex].getFormatDate()}>
+              {rows}
+            </div>
+          )
+          rows = [];
+          weekDays = 0;
+        }
+        dayIndex++;
 
-      const matrix = Lodash.chunk(days, 7);
+      }
 
-      const matrixBlock = matrix.map((days, index) => {
-        return (
-          <div className='container' key={index}>
-            {days.map((d, i) => {
-              return (
-                <DayBlock day={d} key={index + ' ' + i}/>
-              )
-            })}
-          </div>
-        )
-      });
+      return <div className='body'> {matrix}</div>
 
-      return matrixBlock;
-    }else return(
+    } else return (
       null
     )
   };
 
-  render(){
+  render() {
 
     const {month, year} = this.props;
 
     return (
       <div className='container'>
         <div className="panel panel-default">
-          <div className="panel-heading">{Calender.getMonthName(month) + ' ' + year}</div>
-          <div className="panel-body" style={{background: '#888888'}}>
-            <div className='container'>
-              <div style={{ float: 'left'}}>
-                <button onClick={this.navigateToPrevious}> Prev </button>
+          <div className="panel-heading">{this.renderDaysLabels()}</div>
+          <div className="panel-body" >
+            <div className="btn-group btn-group-justified" role="group" aria-label="...">
+              <div className="btn-group" role="group">
+                <button type="button" className="btn btn-default" onClick={this.navigateToPrevious}> {'<< Prev Month'}</button>
               </div>
-              <div style={{ float: 'left'}}>
-                <button onClick={this.navigateToNextMonth}> Next </button>
+              <div className="btn-group" role="group">
+
+              </div>
+              <div className="btn-group" role="group">
+                <button type="button" className="btn btn-default" onClick={this.navigateToNextMonth}>Next Month >></button>
               </div>
             </div>
-            <div className='container'>
-              {this.getDaysLabels()}
+
+            <div style={{'margin-top': '18px'}}>
+            {this.renderDaysMatrix()}
             </div>
-            {this.getDaysMatrix()}
           </div>
         </div>
       </div>

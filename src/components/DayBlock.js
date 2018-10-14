@@ -5,6 +5,7 @@ import Reminder from "../models/reminder";
 import Faker from 'faker';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import '../styles.css'
 
 
 // day as props
@@ -28,52 +29,62 @@ class DayBlock extends Component {
         }
       }
     }
+
+    reminders.sort((a, b) => {
+      return a.time >= b.time ? -1 : 0
+    });
+
     return reminders;
 
   };
-
 
 
   componentDidMount() {
 
   }
 
+  renderReminder() {
+    let reminders = this.getReminders();
+    let reminderArray = [];
+    for (let id in reminders) {
+      reminderArray.push(
+        <Link to={`/reminder/${reminders[id].uuid}/edit`}>
+          <div className="col-center reminder" style={{color: reminders[id].color}} key={id}>
+            <b>({reminders[id].startTime}) </b>
+            {reminders[id].title}
+          </div>
+        </Link>
+      );
+    }
+    return <div className="col-center">{reminderArray}</div>;
+  }
+
+
   render() {
     const {day} = this.props;
     const reminders = this.getReminders();
-    reminders.sort((a,b) => { return a.time >= b.time ? -1: -0});
-    const reminderBlock = reminders.map((r) => {
-      return (
-        <div key={r.uuid}>
-          <Link to={`/reminder/${r.uuid}/edit`}>
-            <span className='badge' style={{background: r.color}}> {r.startTime + ' ' + r.title.slice(0,10) + ".."} </span>
-          </Link>
-        </div>
-      )
+    reminders.sort((a, b) => {
+      return a.time >= b.time ? -1 : -0
     });
+
     console.log(reminders);
     if (day) {
       return (
-        <div className='day-block'>
-          <span className='day-date'>
-            {day.date}
-            <Link to={'/reminder/new/' + day.getFormatDate()} onClick={this.createReminder}>
-              <span className='badge'>
-                +
-              </span>
-            </Link>
+        <div className={`col cell cal-container`} key={day.getFormatDate()}>
+          <span className="number">
+            <span className="badge" style={{'font-size': '14px'}}>{day.date}</span>
           </span>
+          <div className='scrollable'>
+            <span className="number">{this.renderReminder()}</span>
+          </div>
           <div>
-            {reminderBlock}
-
+            <Link to={`/reminder/new/${day.getFormatDate()}`}> + </Link>
           </div>
         </div>
       )
     } else {
       return (
-        <div className='day-block'>
-
-        </div>
+        <div className={`col cell inactive`}> # </div>
       )
     }
   }

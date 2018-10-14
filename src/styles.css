@@ -1,0 +1,73 @@
+.row {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .col {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+  }
+
+   .body .row {
+    border-bottom: 1px solid #e4e4e4;
+  }
+
+   .days {
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #a4a4a4;
+    font-size: 70%;
+  }
+  
+  
+  .col-center {
+    justify-content: center;
+    text-align: center;
+      overflow-y: scroll;
+  }
+
+  .reminder {
+      padding: 5%;
+  }
+
+  .body .col {
+    flex-grow: 0;
+    flex-basis: calc(100%/7);
+    width: calc(100%/7);
+  }
+
+  .body .cell {
+    position: relative;
+    height: 10em;
+    border-right: 1px solid #e4e4e4;
+  }
+
+   .body .cell .number {
+    font-size: 82.5%;
+    line-height: 1;
+    align-items: center;
+    top: .75em;
+    right: .75em;
+    font-weight: 500;
+
+  }
+
+   .scrollable {
+       overflow-y: scroll;
+       flex-grow: 1;
+   }
+
+   .cal-container{
+       display: flex;
+       flex-direction: column;
+   }
+
+   .inactive{
+       background: cornsilk;
+   }
+
