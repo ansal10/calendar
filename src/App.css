@@ -29,7 +29,7 @@
 .day-block {
     margin: 2px;
     width: 13.5%;
-    background: bisque;
+    background: #fffff1;
     float: left;
     height: 100px;
     overflow-y: scroll

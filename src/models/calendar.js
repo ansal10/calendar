@@ -40,7 +40,7 @@ class Calender {
   }
   static getMonthName = (monthNumber) => {
     return ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'][Number.parseInt(monthNumber)]
+      'August', 'September', 'October', 'November', 'December'][Number.parseInt(monthNumber)-1]
   }
 
 

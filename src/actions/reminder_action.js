@@ -75,12 +75,12 @@ class ReminderActions {
     const {title, date, color, time, duration} = param;
     if (!title ||  title.length > 30)
       return 'Title is required and length should be 30';
-    if (Moment().toISOString() > Moment(date, 'YYYY-MM-DD').toISOString() )
-      return 'Reminder for previous date is not allowed';
+    if (!Moment(date, 'YYYY-MM-DD').isValid() )
+      return 'Date is not valid';
     if (!time || !Moment(time, 'hh:mm').isValid())
       return 'Valid time is required';
     if (!duration || duration < 5 || duration > 60)
-      return 'Duration can only be 5 to 60 mins'
+      return 'Duration can only be 5 to 60 mins';
     return null;
   }
 }

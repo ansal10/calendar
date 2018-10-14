@@ -26,7 +26,7 @@ class CalendarMonth extends Component {
   getDaysLabels(){
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((d) => {
       return (
-        <div className='day-block' key={d}>
+        <div style={{width: '13%', float: 'left'}} key={d}>
           {d}
         </div>
       )
@@ -104,7 +104,7 @@ class CalendarMonth extends Component {
     return (
       <div className='container'>
         <div className="panel panel-default">
-          <div className="panel-heading">{Calender.getMonthName(month)}</div>
+          <div className="panel-heading">{Calender.getMonthName(month) + ' ' + year}</div>
           <div className="panel-body">
             <div className='container'>
               <div style={{ float: 'left'}}>

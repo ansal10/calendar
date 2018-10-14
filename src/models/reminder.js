@@ -11,7 +11,7 @@ class Reminder {
   uuid;
   date;
 
-  constructor({title, startTime, duration, color = '#00FF00', day}){
+  constructor({title, startTime, duration, color = '#000000', day}){
     this.title = title;
     this.startTime = startTime;  // HHMM format
     this.duration = duration;   // minutes
