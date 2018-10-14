@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import CalendarMonth from "./components/CalendarMonth/CalendarMonth";
+import CalendarMonth from "./components/CalendarMonth";
 import Reminder from './components/ReminderDetails'
 import {ToastContainer, ToastStore} from 'react-toasts';
 

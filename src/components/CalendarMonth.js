@@ -3,9 +3,10 @@
 import React, {Component} from 'react'
 import Immutable from 'immutable'
 import {connect} from 'react-redux'
-import {Calender} from '../../models/calendar';
+import {Calender} from '../models/calendar';
 import Moment from 'moment';
 import {DayBlock} from "./DayBlock";
+import Reminder from "../models/reminder";
 
 class CalendarMonth extends Component {
 
@@ -24,6 +25,7 @@ class CalendarMonth extends Component {
   getDaysLabels(){
 
   }
+
 
   getDaysMatrix = () => {
 
