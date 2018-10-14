@@ -22,6 +22,8 @@ class DayBlock extends Component {
       const reminder = new Reminder({title:title, startTime: time, duration:dur, color: Faker.commerce.color(), day:day});
       reminders.push(reminder);
     }
+
+    // sort based on time;
   };
 
   componentDidMount(){

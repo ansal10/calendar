@@ -3,7 +3,7 @@
 import React, {Component} from 'react'
 import Immutable from 'immutable'
 import {connect} from 'react-redux'
-import {Calender} from '../models/calendar';
+import {Calender, Day} from '../models/calendar';
 import Moment from 'moment';
 import {DayBlock} from "./DayBlock";
 import Reminder from "../models/reminder";
@@ -23,12 +23,15 @@ class CalendarMonth extends Component {
   }
 
   getDaysLabels(){
-
+    // sunday to saturday
   }
 
 
-  getDaysMatrix = () => {
+  getDaysMatrix = () => {  // 7 x 5 Day matrix
 
+    for (let i = 1 ; i < 31 ; i++) {
+      let day = new Day({date:i, month:10, year:2018});
+    }
   };
 
 
